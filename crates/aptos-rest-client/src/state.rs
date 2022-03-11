@@ -32,8 +32,10 @@ impl State {
             .and_then(|h| h.to_str().ok())
             .and_then(|s| s.parse().ok());
 
-        let state = if let (Some(chain_id), Some(version), Some(timestamp_usecs), Some(epoch)) =
-            (maybe_chain_id, maybe_version, maybe_timestamp, maybe_epoch)
+        let epoch = maybe_epoch.unwrap_or(0);
+
+        let state = if let (Some(chain_id), Some(version), Some(timestamp_usecs)) =
+            (maybe_chain_id, maybe_version, maybe_timestamp)
         {
             Self {
                 chain_id,
